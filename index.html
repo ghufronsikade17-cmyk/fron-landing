@@ -28,10 +28,10 @@
             theme: {
                 extend: {
                     colors: {
-                        charcoal: '#1C1C1C',
-                        industrial: '#8E9399',
+                        obsidian: '#0B0C10',
+                        gunmetal: '#1F2833',
+                        platinum: '#C5C6C7',
                         purewhite: '#FFFFFF',
-                        lightgray: '#F3F4F6', // For section 2 contrast
                     },
                     fontFamily: {
                         display: ['Space Grotesk', 'sans-serif'],
@@ -45,8 +45,8 @@
     <style>
         /* Base & Reset */
         body {
-            background-color: #1C1C1C;
-            color: #FFFFFF;
+            background-color: #0B0C10; /* Deep Obsidian */
+            color: #C5C6C7; /* Platinum */
             overflow-x: hidden;
             margin: 0;
             scroll-behavior: smooth;
@@ -54,44 +54,62 @@
 
         /* Gradient for Hero Section to separate from fiber sticks */
         .hero-bg {
-            background: radial-gradient(circle at center right, #2A2D34 0%, #1C1C1C 70%);
+            /* Dynamic radial gradient highlighting behind 3D object */
+            background: radial-gradient(circle at 75% 50%, #1F2833 0%, #0B0C10 60%);
+        }
+
+        /* Section gradient transitions */
+        .section-transition-1-2 {
+            background: linear-gradient(to bottom, #0B0C10, #13171D, #1F2833);
+        }
+
+        .section-transition-2-3 {
+            background: linear-gradient(to bottom, #1F2833, #151A21, #0B0C10);
         }
 
         /* Marketplace Hover Effects */
         .card-shopee:hover {
             border-color: #ee4d2d;
-            box-shadow: 0 4px 15px rgba(238, 77, 45, 0.1);
+            box-shadow: 0 4px 20px rgba(238, 77, 45, 0.15);
         }
         .card-tokopedia:hover {
             border-color: #03AC0E;
-            box-shadow: 0 4px 15px rgba(3, 172, 14, 0.1);
+            box-shadow: 0 4px 20px rgba(3, 172, 14, 0.15);
         }
         .card-tiktok:hover {
-            border-color: #00f2fe; /* TikTok cyan */
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.1);
-        }
-        .card-whatsapp:hover {
-            border-color: #25D366;
-            background-color: #25D366;
-            color: #1C1C1C;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+            border-color: #00f2fe;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.15);
         }
 
         /* 3D Canvas Container */
         #canvas-container {
             width: 100%;
-            height: 500px;
+            height: 600px;
             cursor: grab;
+            position: relative;
         }
         #canvas-container:active {
             cursor: grabbing;
         }
 
+        /* Overlay Logo on 3D Canvas */
+        .overlay-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            color: rgba(197, 198, 199, 0.05); /* very subtle platinum */
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1C1C1C; }
-        ::-webkit-scrollbar-thumb { background: #8E9399; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FFFFFF; }
+        ::-webkit-scrollbar-track { background: #0B0C10; }
+        ::-webkit-scrollbar-thumb { background: #1F2833; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C5C6C7; }
 
         .hover-elevate {
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -99,14 +117,28 @@
         .hover-elevate:hover {
             transform: translateY(-5px);
         }
+
+        /* Scroll-driven Fade-In Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
     </style>
 </head>
 <body class="font-body antialiased min-h-screen flex flex-col">
 
     <!-- Navigation -->
-    <nav class="w-full px-8 py-6 flex justify-between items-center fixed top-0 z-50 bg-charcoal/80 backdrop-blur-md">
+    <nav class="w-full px-8 py-6 flex justify-between items-center fixed top-0 z-50 bg-obsidian/80 backdrop-blur-md">
         <div class="font-display font-bold text-2xl tracking-[0.2em] text-purewhite">FRON.</div>
-        <a href="#marketplace" class="border border-industrial text-industrial hover:text-purewhite hover:border-purewhite px-4 py-1 text-xs font-bold tracking-widest uppercase transition-all duration-300">
+        <a href="#marketplace" class="border border-platinum/50 text-platinum hover:text-purewhite hover:border-purewhite px-4 py-1 text-xs font-bold tracking-widest uppercase transition-all duration-300">
             [ SHOP ]
         </a>
     </nav>
@@ -117,37 +149,37 @@
 
             <!-- Left: Typography & Copywriting -->
             <div class="w-full lg:w-1/2 flex flex-col space-y-8 z-10">
-                <div class="space-y-4">
-                    <p class="text-industrial text-xs tracking-[0.3em] uppercase">Aero-Olfactory Architecture</p>
-                    <h1 class="font-display text-4xl lg:text-6xl font-bold leading-tight">
+                <div class="space-y-4 fade-in-up">
+                    <p class="text-platinum/60 text-xs tracking-[0.3em] uppercase">Aero-Olfactory Architecture</p>
+                    <h1 class="font-display text-4xl lg:text-6xl font-bold leading-tight text-purewhite">
                         Aroma Presisi untuk <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purewhite to-industrial">Ruang Reflektif</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-platinum to-gunmetal">Ruang Reflektif</span>
                     </h1>
                 </div>
 
-                <p class="text-gray-400 text-sm lg:text-base leading-relaxed max-w-lg font-light">
+                <p class="text-platinum/70 text-sm lg:text-base leading-relaxed max-w-lg font-light fade-in-up delay-100">
                     Sebuah mahakarya wewangian ruang artisan 50ml yang dirancang melalui riset formulasi mendalam. Menghadirkan transisi suasana dari kesegaran fajar hingga kehangatan malam, dikemas dalam botol kaca minimalis dan tas korduroi eksklusif.
                 </p>
 
                 <!-- Variant Switcher Tabs -->
-                <div class="flex space-x-1 bg-charcoal p-1 rounded-sm border border-gray-800 w-max mt-4">
-                    <button id="btn-dago" class="variant-btn px-6 py-2 text-xs tracking-widest font-display transition-all duration-300 bg-purewhite text-charcoal rounded-sm" onclick="switchVariant('dago')">
+                <div class="flex space-x-1 bg-obsidian/50 p-1 rounded-sm border border-gunmetal w-max mt-4 fade-in-up delay-200">
+                    <button id="btn-dago" class="variant-btn px-6 py-2 text-xs tracking-widest font-display transition-all duration-300 bg-platinum text-obsidian rounded-sm font-bold" onclick="switchVariant('dago')">
                         05:00 DAGO
                     </button>
-                    <button id="btn-sudirman" class="variant-btn px-6 py-2 text-xs tracking-widest font-display text-industrial hover:text-purewhite transition-all duration-300 rounded-sm" onclick="switchVariant('sudirman')">
+                    <button id="btn-sudirman" class="variant-btn px-6 py-2 text-xs tracking-widest font-display text-platinum/60 hover:text-platinum transition-all duration-300 rounded-sm" onclick="switchVariant('sudirman')">
                         18:00 SUDIRMAN
                     </button>
                 </div>
 
                 <!-- Dynamic Vibe Text -->
-                <div class="h-12 mt-2">
-                    <p id="vibe-text" class="text-industrial font-light italic text-sm transition-opacity duration-500">
+                <div class="h-12 mt-2 fade-in-up delay-200">
+                    <p id="vibe-text" class="text-platinum/60 font-light italic text-sm transition-opacity duration-500">
                         "Menghadirkan impresi suasana pagi hari yang dingin, tenang, reflektif, dan segar."
                     </p>
                 </div>
 
-                <div class="pt-4">
-                    <a href="#marketplace" class="inline-block hover-elevate bg-purewhite text-charcoal font-display font-semibold py-4 px-8 rounded-sm tracking-wide flex items-center w-max gap-3 group transition-transform">
+                <div class="pt-4 fade-in-up delay-300">
+                    <a href="#marketplace" class="inline-block hover-elevate bg-purewhite text-obsidian font-display font-semibold py-4 px-8 rounded-sm tracking-wide flex items-center w-max gap-3 group transition-transform">
                         Mulai Transisi Ruangmu
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -157,33 +189,35 @@
             </div>
 
             <!-- Right: 3D Canvas -->
-            <div class="w-full lg:w-1/2 flex justify-center items-center">
-                <div id="canvas-container"></div>
+            <div class="w-full lg:w-1/2 flex justify-center items-center relative fade-in-up delay-200">
+                <div id="canvas-container">
+                    <div class="overlay-logo font-display tracking-[0.3em] font-bold">FRON.</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- SECTION 2: Artisan & Formulation Architecture -->
-    <section class="w-full bg-lightgray text-charcoal py-24 px-8 lg:px-24">
+    <section class="w-full section-transition-1-2 py-24 px-8 lg:px-24">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-4">Arsitektur Formulasi</h2>
-                <p class="text-industrial max-w-2xl mx-auto font-light">Disusun dengan presisi untuk menyebarkan aroma secara perlahan dan konsisten, menciptakan ekosistem ruang yang terdefinisi dengan baik.</p>
+            <div class="text-center mb-16 fade-in-up">
+                <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-4 text-purewhite">Arsitektur Formulasi</h2>
+                <p class="text-platinum/70 max-w-2xl mx-auto font-light">Disusun dengan presisi untuk menyebarkan aroma secara perlahan dan konsisten, menciptakan ekosistem ruang yang terdefinisi dengan baik.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                 <!-- Formulation -->
-                <div class="flex flex-col space-y-4 border-t border-charcoal/20 pt-6">
-                    <h3 class="font-display text-2xl font-semibold">Formulasi Murni</h3>
-                    <p class="text-charcoal/70 font-light leading-relaxed">
+                <div class="flex flex-col space-y-4 border-t border-gunmetal pt-6 fade-in-up delay-100">
+                    <h3 class="font-display text-2xl font-semibold text-purewhite">Formulasi Murni</h3>
+                    <p class="text-platinum/80 font-light leading-relaxed">
                         Kami menggunakan kombinasi <strong>Fragrance Oil murni</strong> dan <strong>Premium Solvent</strong> tanpa kandungan alkohol (0% Alkohol). Formulasi ini mencegah penguapan instan, memastikan partikel aroma terdistribusi secara stabil melalui stik fiber.
                     </p>
                 </div>
 
                 <!-- Packaging -->
-                <div class="flex flex-col space-y-4 border-t border-charcoal/20 pt-6">
-                    <h3 class="font-display text-2xl font-semibold">Kemasan Eksklusif</h3>
-                    <p class="text-charcoal/70 font-light leading-relaxed">
+                <div class="flex flex-col space-y-4 border-t border-gunmetal pt-6 fade-in-up delay-200">
+                    <h3 class="font-display text-2xl font-semibold text-purewhite">Kemasan Eksklusif</h3>
+                    <p class="text-platinum/80 font-light leading-relaxed">
                         Setiap produk FRON. hadir dalam balutan <strong>Premium Hardbox</strong> yang tangguh dan elegan, disertai dengan <strong>Corduroy Bag</strong> pelindung. Sebuah pengalaman unboxing arsitektural yang mewakili nilai estetika brand kami.
                     </p>
                 </div>
@@ -192,36 +226,42 @@
     </section>
 
     <!-- SECTION 3: Marketplace Gateway -->
-    <section id="marketplace" class="w-full bg-charcoal py-24 px-8 lg:px-24">
+    <section id="marketplace" class="w-full section-transition-2-3 py-24 px-8 lg:px-24">
         <div class="max-w-5xl mx-auto text-center">
-            <p class="text-industrial text-xs tracking-[0.3em] uppercase mb-4">Distribusi</p>
-            <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-12">Pintu Gerbang Distribusi</h2>
+            <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4 fade-in-up">Distribusi</p>
+            <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-16 text-purewhite fade-in-up delay-100">COMMERCIAL PORTALS & ACQUISITION</h2>
 
-            <div class="flex flex-col space-y-8">
-                <!-- Main WhatsApp CTA -->
-                <a href="https://wa.me/6281234567890?text=Halo%20Admin%20FRON.,%20saya%20tertarik%20untuk%20memesan%20Reed%20Diffuser.%20Boleh%20minta%20katalog%20dan%20informasi%20pemesanannya?" target="_blank" class="card-whatsapp hover-elevate border border-industrial rounded-sm p-6 flex items-center justify-center space-x-4 transition-all duration-300 w-full max-w-2xl mx-auto">
-                    <svg viewBox="0 0 24 24" class="w-8 h-8 fill-current"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-                    <span class="font-display font-bold tracking-widest">ORDER VIA WHATSAPP</span>
-                </a>
+            <div class="flex flex-col space-y-12">
 
                 <!-- Marketplace Cards Container -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
                     <!-- Shopee -->
-                    <a href="https://shopee.co.id/fron.lab" target="_blank" class="card-shopee hover-elevate border border-charcoal/50 bg-charcoal rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                        <span class="text-industrial font-display tracking-widest text-sm mb-2">SHOPEE</span>
-                        <span class="text-purewhite text-xs opacity-50">Official Store</span>
+                    <a href="https://shopee.co.id/fron.lab" target="_blank" class="card-shopee fade-in-up delay-100 hover-elevate border border-gunmetal bg-obsidian rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300">
+                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2">SHOPEE</span>
+                        <span class="text-platinum/50 text-xs font-light">Official Store</span>
                     </a>
 
                     <!-- Tokopedia -->
-                    <a href="https://tk.tokopedia.com/ZSCbKXaxm/" target="_blank" class="card-tokopedia hover-elevate border border-charcoal/50 bg-charcoal rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                        <span class="text-industrial font-display tracking-widest text-sm mb-2">TOKOPEDIA</span>
-                        <span class="text-purewhite text-xs opacity-50">Official Store</span>
+                    <a href="https://tk.tokopedia.com/ZSCbKXaxm/" target="_blank" class="card-tokopedia fade-in-up delay-200 hover-elevate border border-gunmetal bg-obsidian rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300">
+                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2">TOKOPEDIA</span>
+                        <span class="text-platinum/50 text-xs font-light">Official Store</span>
                     </a>
 
                     <!-- TikTok Shop -->
-                    <a href="https://www.tiktok.com/@fron.official" target="_blank" class="card-tiktok hover-elevate border border-charcoal/50 bg-charcoal rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                        <span class="text-industrial font-display tracking-widest text-sm mb-2">TIKTOK SHOP</span>
-                        <span class="text-purewhite text-xs opacity-50">@fron.official</span>
+                    <a href="https://www.tiktok.com/@fron.official" target="_blank" class="card-tiktok fade-in-up delay-300 hover-elevate border border-gunmetal bg-obsidian rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300 text-center">
+                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2 leading-tight">TIKTOK SHOP &<br>OFFICIAL CHANNELS</span>
+                        <span class="text-platinum/50 text-xs font-light mt-1">@fron.official</span>
+                    </a>
+                </div>
+
+                <!-- Social Media Navigation -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-gunmetal fade-in-up delay-300">
+                    <a href="https://www.instagram.com/fron.os" target="_blank" class="text-platinum/60 hover:text-purewhite text-xs tracking-[0.2em] font-display transition-colors">
+                        INSTAGRAM @fron.os
+                    </a>
+                    <span class="hidden sm:inline text-gunmetal">|</span>
+                    <a href="https://www.tiktok.com/@fron.official" target="_blank" class="text-platinum/60 hover:text-purewhite text-xs tracking-[0.2em] font-display transition-colors">
+                        TIKTOK @fron.official
                     </a>
                 </div>
             </div>
@@ -229,9 +269,29 @@
     </section>
 
     <!-- Footer -->
-    <footer class="w-full py-8 text-center border-t border-gray-800 bg-charcoal">
-        <p class="text-industrial text-xs tracking-widest font-display">&copy; 2024 FRON. LAB. ALL RIGHTS RESERVED.</p>
+    <footer class="w-full py-12 text-center border-t border-gunmetal bg-obsidian">
+        <p class="text-platinum/50 text-xs tracking-[0.2em] font-display">&copy; 2026 FRON. LAB. ALL RIGHTS RESERVED.</p>
     </footer>
+
+    <!-- Intersection Observer for Fade-in Animations -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            document.querySelectorAll('.fade-in-up').forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
 
     <!-- Scripts -->
     <script type="module">
@@ -250,28 +310,34 @@
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
+        // Make sure the renderer is above the overlay logo
+        renderer.domElement.style.position = 'relative';
+        renderer.domElement.style.zIndex = '1';
         container.appendChild(renderer.domElement);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
         directionalLight.position.set(5, 5, 5);
         scene.add(directionalLight);
 
-        const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        fillLight.position.set(-5, 0, -5);
-        scene.add(fillLight);
+        const backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+        backLight.position.set(-5, 0, -5);
+        scene.add(backLight);
 
         // --- Materials ---
-        // Glass Material
+        // Enhanced Glass Material (Luxury setup)
         const glassMaterial = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
             metalness: 0.1,
-            roughness: 0.1,
-            transmission: 0.9, // glass effect
-            thickness: 0.2,
+            roughness: 0.05,
+            transmission: 0.95, // high transmission
+            ior: 1.5,           // realistic glass index of refraction
+            clearcoat: 1.0,     // full clearcoat for shiny reflection
+            clearcoatRoughness: 0.1,
+            thickness: 0.5,
             transparent: true,
             opacity: 1
         });
@@ -286,18 +352,18 @@
             opacity: 0.8
         });
 
-        // Cap Material
+        // Cap Material (Muted Gunmetal equivalent)
         const capMaterial = new THREE.MeshStandardMaterial({
-            color: 0x8E9399,
+            color: 0x1F2833,
             metalness: 0.8,
-            roughness: 0.2
+            roughness: 0.3
         });
 
-        // Stick Material
+        // Stick Material (Black)
         const stickMaterial = new THREE.MeshStandardMaterial({
-            color: 0x111111,
+            color: 0x050505,
             metalness: 0.1,
-            roughness: 0.8
+            roughness: 0.9
         });
 
         // --- Geometries & Meshes ---
@@ -336,12 +402,55 @@
 
         scene.add(bottleGroup);
 
+        // --- Vapor Particle System ---
+        const particleCount = 150;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0xC5C6C7, // Platinum Accent
+            size: 0.03,
+            transparent: true,
+            opacity: 0.4,
+            blending: THREE.AdditiveBlending
+        });
+
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = [];
+
+        for(let i = 0; i < particleCount; i++) {
+            // Start around the cap area
+            positions[i*3] = (Math.random() - 0.5) * 0.5; // x
+            positions[i*3+1] = 1.5 + Math.random() * 2.0;   // y (above cap)
+            positions[i*3+2] = (Math.random() - 0.5) * 0.5; // z
+
+            velocities.push({
+                x: (Math.random() - 0.5) * 0.005,
+                y: 0.005 + Math.random() * 0.01,
+                z: (Math.random() - 0.5) * 0.005
+            });
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particleSystem);
+
         // Controls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.enableZoom = false; // Custom zoom on hover instead
         controls.enablePan = false;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.5; // very slow
+
+        // Temporarily stop autoRotate when interacting
+        controls.addEventListener('start', () => { controls.autoRotate = false; });
+        // Resume autoRotate after a delay if desired, or keep it off.
+        // We'll resume it after 3 seconds of no interaction.
+        let interactTimeout;
+        controls.addEventListener('end', () => {
+            clearTimeout(interactTimeout);
+            interactTimeout = setTimeout(() => { controls.autoRotate = true; }, 3000);
+        });
 
         // Custom Hover Zoom Effect
         let targetZ = 6;
@@ -353,9 +462,25 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // Subtle floating animation
+            // Subtle floating animation for bottle
             const elapsedTime = clock.getElapsedTime();
             bottleGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.05;
+
+            // Animate Particles (Vapor)
+            const positionsAtt = particleSystem.geometry.attributes.position;
+            for(let i = 0; i < particleCount; i++) {
+                positionsAtt.array[i*3] += velocities[i].x;
+                positionsAtt.array[i*3+1] += velocities[i].y;
+                positionsAtt.array[i*3+2] += velocities[i].z;
+
+                // Reset particle if it goes too high
+                if(positionsAtt.array[i*3+1] > 4.0) {
+                    positionsAtt.array[i*3] = (Math.random() - 0.5) * 0.5;
+                    positionsAtt.array[i*3+1] = 1.5;
+                    positionsAtt.array[i*3+2] = (Math.random() - 0.5) * 0.5;
+                }
+            }
+            positionsAtt.needsUpdate = true;
 
             // Smooth Zoom
             camera.position.z += (targetZ - camera.position.z) * 0.05;
@@ -396,12 +521,12 @@
 
             // Update Buttons UI
             document.querySelectorAll('.variant-btn').forEach(btn => {
-                btn.classList.remove('bg-purewhite', 'text-charcoal');
-                btn.classList.add('text-industrial');
+                btn.classList.remove('bg-platinum', 'text-obsidian', 'font-bold');
+                btn.classList.add('text-platinum/60');
             });
             const activeBtn = document.getElementById(`btn-${variantKey}`);
-            activeBtn.classList.remove('text-industrial');
-            activeBtn.classList.add('bg-purewhite', 'text-charcoal');
+            activeBtn.classList.remove('text-platinum/60');
+            activeBtn.classList.add('bg-platinum', 'text-obsidian', 'font-bold');
 
             // Animate Text Change
             const vibeText = document.getElementById('vibe-text');
@@ -413,7 +538,6 @@
 
             // Update 3D Liquid Color
             if(window.liquidMaterial) {
-                // Smooth transition could be implemented, but direct set is fine for now
                 window.liquidMaterial.color.setHex(data.colorHex);
             }
         }
