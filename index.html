@@ -61,37 +61,80 @@
             background: radial-gradient(circle at 75% 50%, #1F2022 0%, #0B0C10 60%);
         }
 
-        /* Monochromatic transitions for other sections to maintain dark ambiance */
+        /* Seamless Mesh Gradients for Section Transitions */
         .section-transition-1-2 {
-            background: linear-gradient(to bottom, #0B0C10, #131416, #1F2022);
+            background: linear-gradient(180deg, #0B0C10 0%, #111315 50%, #18191B 100%);
         }
 
-        .section-transition-2-3 {
-            background: linear-gradient(to bottom, #1F2022, #151618, #0B0C10);
+        .section-transition-2-sim {
+            background: linear-gradient(180deg, #18191B 0%, #141518 50%, #111316 100%);
+        }
+
+        .section-transition-sim-3 {
+            background: linear-gradient(180deg, #111316 0%, #0E0F12 50%, #0B0C10 100%);
+        }
+
+        /* Nav SHOP Button */
+        .btn-shop {
+            background-color: #C5C6C7;
+            color: #0B0C10;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .btn-shop:hover {
+            background-color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(197, 198, 199, 0.3);
         }
 
         /* Marketplace Cards (Section 3) */
-        .card-shopee, .card-tokopedia, .card-tiktok {
-            border: 1px solid #1F2022;
-            background-color: #0B0C10;
+        .card-shopee {
+            background-color: rgba(238, 77, 45, 0.08);
+            border: 1px solid #EE4D2D;
         }
-
         .card-shopee:hover {
-            border-color: #EE4D2D;
-            background-color: rgba(238, 77, 45, 0.05);
-            box-shadow: 0 4px 20px rgba(238, 77, 45, 0.15);
+            box-shadow: 0 0 25px rgba(238, 77, 45, 0.3);
         }
 
+        .card-tokopedia {
+            background-color: rgba(3, 172, 14, 0.08);
+            border: 1px solid #03AC0E;
+        }
         .card-tokopedia:hover {
-            border-color: #03AC0E;
-            background-color: rgba(3, 172, 14, 0.05);
-            box-shadow: 0 4px 20px rgba(3, 172, 14, 0.15);
+            box-shadow: 0 0 25px rgba(3, 172, 14, 0.3);
         }
 
+        .card-tiktok {
+            background-color: #0B0C10;
+            border: 1px solid #00F2FE;
+            outline: 1px solid #00F2FE;
+            outline-offset: 2px;
+            margin: 2px; /* space for outline */
+        }
         .card-tiktok:hover {
-            border-color: #00F2FE;
-            background-color: rgba(0, 242, 254, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.15);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+            outline-color: #FFFFFF;
+            border-color: #FFFFFF;
+        }
+
+        /* Simulator Tabs */
+        .sim-tab {
+            border: 1px solid rgba(197, 198, 199, 0.3);
+            color: rgba(197, 198, 199, 0.6);
+            transition: all 0.3s ease;
+        }
+        .sim-tab.active {
+            border-color: #C5C6C7;
+            color: #0B0C10;
+            background-color: #C5C6C7;
+            font-weight: bold;
+        }
+        .sim-tab:hover:not(.active) {
+            border-color: #C5C6C7;
+            color: #C5C6C7;
         }
 
         /* 3D Canvas Container */
@@ -139,7 +182,7 @@
     <nav class="w-full px-8 py-6 flex justify-between items-center fixed top-0 z-50 bg-obsidian/80 backdrop-blur-md">
         <!-- Letter spacing bold FRON. -->
         <div class="font-display font-bold text-2xl tracking-[0.3em] text-purewhite">FRON.</div>
-        <a href="#marketplace" class="border border-platinum/30 text-platinum hover:text-purewhite hover:border-purewhite px-4 py-1 text-xs font-bold tracking-widest uppercase transition-all duration-300">
+        <a href="#marketplace" class="btn-shop text-xs uppercase rounded-sm">
             [ SHOP ]
         </a>
     </nav>
@@ -224,8 +267,29 @@
         </div>
     </section>
 
+    <!-- SECTION 2.5: SPACE PLACEMENT SIMULATOR -->
+    <section class="w-full section-transition-2-sim py-24 px-8 lg:px-24">
+        <div class="max-w-5xl mx-auto text-center fade-in-up">
+            <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4">Interaktif</p>
+            <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-8 text-purewhite">SPACE PLACEMENT SIMULATOR</h2>
+            <p class="text-platinum/70 max-w-2xl mx-auto font-light mb-12">Simulasikan atmosfir dan pencahayaan FRON. di berbagai ruang interior pilihan Anda. Perhatikan bagaimana pantulan cahaya dan aura bereaksi.</p>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <button id="sim-bedside" class="sim-tab active px-6 py-3 text-xs tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('bedside')">
+                    [ BEDSIDE TABLE ]
+                </button>
+                <button id="sim-workspace" class="sim-tab px-6 py-3 text-xs tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('workspace')">
+                    [ CREATIVE WORKSPACE ]
+                </button>
+                <button id="sim-lounge" class="sim-tab px-6 py-3 text-xs tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('lounge')">
+                    [ MINIMALIST LOUNGE ]
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- SECTION 3: OFFICIAL CHANNELS -->
-    <section id="marketplace" class="w-full section-transition-2-3 py-24 px-8 lg:px-24">
+    <section id="marketplace" class="w-full section-transition-sim-3 py-24 px-8 lg:px-24">
         <div class="max-w-5xl mx-auto text-center">
             <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4 fade-in-up">Distribusi</p>
             <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-16 text-purewhite fade-in-up delay-100">OFFICIAL CHANNELS</h2>
@@ -233,23 +297,23 @@
             <div class="flex flex-col space-y-12">
 
                 <!-- Marketplace Cards Container -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full p-2">
                     <!-- Shopee -->
                     <a href="https://shopee.co.id/fron.lab" target="_blank" class="card-shopee fade-in-up delay-100 hover-elevate rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300">
-                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2">SHOPEE</span>
-                        <span class="text-platinum/50 text-xs font-light">Official Store</span>
+                        <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-2">SHOPEE</span>
+                        <span class="text-platinum/70 text-xs font-light">Official Store</span>
                     </a>
 
                     <!-- Tokopedia -->
                     <a href="https://tk.tokopedia.com/ZSCbKXaxm/" target="_blank" class="card-tokopedia fade-in-up delay-200 hover-elevate rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300">
-                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2">TOKOPEDIA</span>
-                        <span class="text-platinum/50 text-xs font-light">Official Store</span>
+                        <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-2">TOKOPEDIA</span>
+                        <span class="text-platinum/70 text-xs font-light">Official Store</span>
                     </a>
 
                     <!-- TikTok Shop -->
                     <a href="https://www.tiktok.com/@fron.official" target="_blank" class="card-tiktok fade-in-up delay-300 hover-elevate rounded-sm p-8 flex flex-col items-center justify-center transition-all duration-300 text-center">
-                        <span class="text-platinum font-display font-bold tracking-widest text-sm mb-2 leading-tight">TIKTOK SHOP</span>
-                        <span class="text-platinum/50 text-xs font-light mt-1">@fron.official</span>
+                        <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-2 leading-tight">TIKTOK SHOP</span>
+                        <span class="text-platinum/70 text-xs font-light mt-1">@fron.official</span>
                     </a>
                 </div>
 
@@ -300,7 +364,6 @@
         // --- 1. Scene Setup & Camera ---
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
-        // Adjust camera to look slightly down onto the floor
         const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
         camera.position.set(0, 2.5, 7);
 
@@ -308,14 +371,14 @@
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Softer shadows
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
         // --- 2. Lighting ---
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
 
-        // Key spotlight for dramatic shadows
+        // Key spotlight
         const spotLight = new THREE.SpotLight(0xffffff, 3.0);
         spotLight.position.set(3, 6, 4);
         spotLight.angle = Math.PI / 4;
@@ -330,52 +393,59 @@
         fillLight.position.set(-5, 3, -5);
         scene.add(fillLight);
 
-        // --- 3. Studio Floor ---
-        // Reflective marble floor plane
+        // High Intensity Backlighting/Rim Lighting pointing at sticks
+        // Sticks are around y=3.5. We put this light below and behind.
+        const rimLight = new THREE.DirectionalLight(0xffffff, 3.0);
+        rimLight.position.set(0, -2, -5); // Behind and below
+        // Target it towards the sticks
+        const rimTarget = new THREE.Object3D();
+        rimTarget.position.set(0, 3.5, 0);
+        scene.add(rimTarget);
+        rimLight.target = rimTarget;
+        scene.add(rimLight);
+
+        // --- 3. High-Gloss Marble Studio Floor ---
         const floorGeometry = new THREE.PlaneGeometry(20, 20);
         const floorMaterial = new THREE.MeshStandardMaterial({
             color: 0xE5E5E5,
-            roughness: 0.1, // Shiny
-            metalness: 0.2
+            roughness: 0.05, // Highly glossy
+            metalness: 0.1
         });
         const floor = new THREE.Mesh(floorGeometry, floorMaterial);
         floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -1.0; // Place floor below the bottle base
+        floor.position.y = -1.0;
         floor.receiveShadow = true;
         scene.add(floor);
 
-        // --- 4. Product Modeling (Bottle, Liquid, Cap, Label, Sticks) ---
+        // --- 4. Product Modeling ---
         const bottleGroup = new THREE.Group();
-        bottleGroup.position.y = -1.0; // Rest on floor
+        bottleGroup.position.y = -1.0;
 
-        // a. Thick Base Glass Bottle
-        // Using high transmission/IOR for luxury glass look
+        // a. Extra Thick Base Glass Bottle (transmission: 0.99, roughness: 0.01)
         const glassMaterial = new THREE.MeshPhysicalMaterial({
             color: 0xffffff,
             metalness: 0.0,
-            roughness: 0.02,
-            transmission: 0.98,
+            roughness: 0.01,
+            transmission: 0.99,
             ior: 1.52,
             clearcoat: 1.0,
-            clearcoatRoughness: 0.05,
-            thickness: 0.8,
+            clearcoatRoughness: 0.01,
+            thickness: 1.5,
             transparent: true,
             opacity: 1
         });
 
-        // Outer bottle geometry (1.5 wide, 2 tall, 1.5 deep)
-        const outerBottleGeo = new THREE.BoxGeometry(1.5, 2, 1.5);
+        const outerBottleGeo = new THREE.BoxGeometry(1.5, 2.2, 1.5);
         const glassBottle = new THREE.Mesh(outerBottleGeo, glassMaterial);
-        glassBottle.position.y = 1.0; // Center is at 1.0, bottom is at 0.0
+        glassBottle.position.y = 1.1; // Center at 1.1, bottom at 0.0
         glassBottle.castShadow = true;
         glassBottle.receiveShadow = true;
         bottleGroup.add(glassBottle);
 
-        // Inner hollow for liquid (simulating thick base)
-        // Liquid geometry sits slightly above the bottom to show thick glass base
+        // Liquid inside (positioned higher to simulate thick glass base)
         const liquidGeo = new THREE.BoxGeometry(1.3, 1.2, 1.3);
         const liquidMaterial = new THREE.MeshPhysicalMaterial({
-            color: 0xe2e8f0, // Default DAGO (clear/platinum bias)
+            color: 0xe2e8f0,
             metalness: 0.0,
             roughness: 0.1,
             transmission: 0.8,
@@ -383,73 +453,64 @@
             opacity: 0.85
         });
         const liquidMesh = new THREE.Mesh(liquidGeo, liquidMaterial);
-        // Position liquid to rest on the thick base (0.3 offset from bottom inside)
-        liquidMesh.position.y = 0.9;
+        liquidMesh.position.y = 1.2; // Sit high above bottom
         bottleGroup.add(liquidMesh);
 
-        // b. Tapered Wooden Cap
+        // b. Tapered Wooden Cap (Oak Matte)
         const capMaterial = new THREE.MeshStandardMaterial({
             color: 0xC4A484, // Oak
-            roughness: 0.6,  // Matte texture
-            metalness: 0.1
+            roughness: 0.8,  // Matte, rougher texture
+            metalness: 0.0
         });
-        // Tapered box using CylinderGeometry(radiusTop, radiusBottom, height, radialSegments)
-        // Using 4 segments creates a box/pyramid shape.
         const capGeo = new THREE.CylinderGeometry(0.35, 0.45, 0.5, 4);
         const woodenCap = new THREE.Mesh(capGeo, capMaterial);
-        woodenCap.position.y = 2.25; // Sits on top of the glass bottle (y=2.0)
-        // Rotate to align square base with the bottle
+        woodenCap.position.y = 2.45;
         woodenCap.rotation.y = Math.PI / 4;
         woodenCap.castShadow = true;
         bottleGroup.add(woodenCap);
 
-        // c. Product Label (Canvas Texture)
+        // c. Product Label (Canvas Texture double border)
         function createLabelTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 512;
             canvas.height = 512;
             const context = canvas.getContext('2d');
 
-            // White background
             context.fillStyle = '#FFFFFF';
             context.fillRect(0, 0, 512, 512);
 
-            // Double thin border
             context.strokeStyle = '#1C1C1C';
-            context.lineWidth = 4;
-            context.strokeRect(20, 20, 472, 472);
-            context.lineWidth = 2;
+            context.lineWidth = 6;
             context.strokeRect(30, 30, 452, 452);
+            context.lineWidth = 3;
+            context.strokeRect(45, 45, 422, 422);
 
-            // Serif minimalist Text
             context.fillStyle = '#1C1C1C';
-            context.font = 'bold 80px "Playfair Display", serif';
+            context.font = 'bold 90px "Playfair Display", serif';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillText('FRON.', 256, 256);
 
             const texture = new THREE.CanvasTexture(canvas);
-            // Improve texture sharpness
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
             return texture;
         }
 
         const labelMaterial = new THREE.MeshStandardMaterial({
             map: createLabelTexture(),
-            roughness: 0.8,
+            roughness: 0.9,
             metalness: 0.1
         });
         const labelGeo = new THREE.PlaneGeometry(0.8, 0.8);
         const labelMesh = new THREE.Mesh(labelGeo, labelMaterial);
-        // Position on the front face of the glass bottle
-        labelMesh.position.set(0, 1.0, 0.76);
+        labelMesh.position.set(0, 1.2, 0.76);
         bottleGroup.add(labelMesh);
 
         // d. Asymmetrical Fiber Sticks
         const stickMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1A1A1A, // Charcoal
+            color: 0x1A1A1A,
             roughness: 0.9,
-            metalness: 0.0
+            metalness: 0.1 // Slight metalness to catch rim light
         });
         const stickGeo = new THREE.CylinderGeometry(0.015, 0.015, 3.5, 8);
         const sticksParams = [
@@ -461,8 +522,7 @@
 
         sticksParams.forEach(param => {
             const stick = new THREE.Mesh(stickGeo, stickMaterial);
-            // Center of stick is at py/2. We want bottom inside the cap.
-            stick.position.y = param.py / 2 + 2.0;
+            stick.position.y = param.py / 2 + 2.2;
             stick.rotation.x = param.rx;
             stick.rotation.z = param.rz;
             stick.castShadow = true;
@@ -471,33 +531,46 @@
 
         scene.add(bottleGroup);
 
-        // --- 5. Ambient Particle Stars ---
-        const particleCount = 400;
+        // --- 5. Ambient Particle Stars (500 points) ---
+        const particleCount = 500;
         const particlesGeo = new THREE.BufferGeometry();
-        const particlesMat = new THREE.PointsMaterial({
-            color: 0xC5C6C7, // Platinum/golden dust
-            size: 0.02,
-            transparent: true,
-            opacity: 0.6,
-            blending: THREE.AdditiveBlending
-        });
+        // Golden and platinum colors randomly assigned
+        const particleColors = new Float32Array(particleCount * 3);
+        const colorGold = new THREE.Color(0xFFD700);
+        const colorPlat = new THREE.Color(0xC5C6C7);
 
         const posArray = new Float32Array(particleCount * 3);
         const velArray = [];
 
         for(let i = 0; i < particleCount; i++) {
-            // Spread across the room
             posArray[i*3] = (Math.random() - 0.5) * 10;
-            posArray[i*3+1] = Math.random() * 8; // Height
-            posArray[i*3+2] = (Math.random() - 0.5) * 10 - 2; // Depth
+            posArray[i*3+1] = Math.random() * 8;
+            posArray[i*3+2] = (Math.random() - 0.5) * 10 - 2;
 
             velArray.push({
                 x: (Math.random() - 0.5) * 0.002,
                 y: (Math.random() - 0.5) * 0.002,
                 z: (Math.random() - 0.5) * 0.002
             });
+
+            // Mix gold and platinum
+            const col = Math.random() > 0.5 ? colorGold : colorPlat;
+            particleColors[i*3] = col.r;
+            particleColors[i*3+1] = col.g;
+            particleColors[i*3+2] = col.b;
         }
+
         particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeo.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+
+        const particlesMat = new THREE.PointsMaterial({
+            size: 0.02,
+            transparent: true,
+            opacity: 0.6,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending
+        });
+
         const particleSystem = new THREE.Points(particlesGeo, particlesMat);
         scene.add(particleSystem);
 
@@ -506,15 +579,13 @@
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
-        controls.enableZoom = false; // Custom hover zoom used
+        controls.enableZoom = false;
         controls.enablePan = false;
-        // Limit vertical rotation so user cannot see under the floor
         controls.maxPolarAngle = Math.PI / 2 - 0.05;
 
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.5;
 
-        // Interaction interrupt for auto-rotate
         let interactTimeout;
         controls.addEventListener('start', () => { controls.autoRotate = false; });
         controls.addEventListener('end', () => {
@@ -522,7 +593,6 @@
             interactTimeout = setTimeout(() => { controls.autoRotate = true; }, 3000);
         });
 
-        // Hover zoom effect
         let targetZ = 7;
         container.addEventListener('mouseenter', () => { targetZ = 6; });
         container.addEventListener('mouseleave', () => { targetZ = 7; });
@@ -537,7 +607,6 @@
                 pAtt.array[i*3+1] += velArray[i].y;
                 pAtt.array[i*3+2] += velArray[i].z;
 
-                // Loop particles if they drift too far
                 if(pAtt.array[i*3+1] > 8 || pAtt.array[i*3+1] < 0) velArray[i].y *= -1;
                 if(Math.abs(pAtt.array[i*3]) > 5) velArray[i].x *= -1;
             }
@@ -560,12 +629,17 @@
             }
         });
 
-        // Expose liquidMaterial to global scope for Variant Switching
+        // Global EXPORTS for UI integration
         window.liquidMaterial = liquidMaterial;
+        window.floorMaterial = floorMaterial;
+        window.spotLight = spotLight;
+        window.ambientLight = ambientLight;
+        window.particlesMat = particlesMat;
     </script>
 
-    <!-- UI Logic for Variant Switching -->
+    <!-- UI Logic for Interactivity -->
     <script>
+        // Variant Switching
         const variants = {
             dago: {
                 vibe: '"Menghadirkan impresi suasana pagi hari yang dingin, tenang, reflektif, dan segar."',
@@ -580,7 +654,6 @@
         function switchVariant(variantKey) {
             const data = variants[variantKey];
 
-            // Update Buttons UI
             document.querySelectorAll('.variant-btn').forEach(btn => {
                 btn.classList.remove('bg-platinum', 'text-obsidian', 'font-bold');
                 btn.classList.add('text-platinum/60');
@@ -589,7 +662,6 @@
             activeBtn.classList.remove('text-platinum/60');
             activeBtn.classList.add('bg-platinum', 'text-obsidian', 'font-bold');
 
-            // Animate Text Change
             const vibeText = document.getElementById('vibe-text');
             vibeText.style.opacity = 0;
             setTimeout(() => {
@@ -597,14 +669,51 @@
                 vibeText.style.opacity = 1;
             }, 300);
 
-            // Update 3D Liquid Color
             if(window.liquidMaterial) {
                 window.liquidMaterial.color.setHex(data.colorHex);
             }
         }
-
-        // Make switchVariant accessible globally
         window.switchVariant = switchVariant;
+
+
+        // Space Placement Simulator Logic
+        const spaces = {
+            bedside: {
+                floorColor: 0x1A1A1A, // Dark wood/marble
+                lightIntensity: 1.5,  // Dimmer, intimate
+                ambientIntensity: 0.3,
+                particleOpacity: 0.8
+            },
+            workspace: {
+                floorColor: 0xFFFFFF, // Bright clean desk
+                lightIntensity: 4.0,  // Bright, sharp
+                ambientIntensity: 0.8,
+                particleOpacity: 0.2
+            },
+            lounge: {
+                floorColor: 0xE5E5E5, // Default marble
+                lightIntensity: 3.0,  // Balanced
+                ambientIntensity: 0.6,
+                particleOpacity: 0.6
+            }
+        };
+
+        function simulateSpace(spaceKey) {
+            const data = spaces[spaceKey];
+
+            // Update UI
+            document.querySelectorAll('.sim-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`sim-${spaceKey}`).classList.add('active');
+
+            // Update Three.js Scene Variables dynamically if they exist
+            if(window.floorMaterial) window.floorMaterial.color.setHex(data.floorColor);
+            if(window.spotLight) window.spotLight.intensity = data.lightIntensity;
+            if(window.ambientLight) window.ambientLight.intensity = data.ambientIntensity;
+            if(window.particlesMat) window.particlesMat.opacity = data.particleOpacity;
+        }
+        window.simulateSpace = simulateSpace;
     </script>
 </body>
 </html>
