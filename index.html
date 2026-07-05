@@ -54,6 +54,25 @@
             scroll-behavior: smooth;
         }
 
+        /* 2. PALET WARNA & LATAR BELAKANG MAHAL (Studio Photo Atmospheric Background) */
+        .hero-bg {
+            /* Radial gradient spotlight effect */
+            background: radial-gradient(circle at 50% 50%, #1F2022 0%, #0B0C10 70%);
+        }
+
+        /* Seamless Mesh Gradients for Section Transitions */
+        .section-transition-1-2 {
+            background: linear-gradient(180deg, #0B0C10 0%, #111315 50%, #18191B 100%);
+        }
+
+        .section-transition-2-sim {
+            background: linear-gradient(180deg, #18191B 0%, #141518 50%, #111316 100%);
+        }
+
+        .section-transition-sim-3 {
+            background: linear-gradient(180deg, #111316 0%, #0E0F12 50%, #0B0C10 100%);
+        }
+
         /* Nav SHOP Button */
         .btn-shop {
             background-color: #C5C6C7;
@@ -138,47 +157,15 @@
             color: #C5C6C7;
         }
 
-        /* SPLIT SCREEN LAYOUT */
-        .split-layout {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .scrollable-content {
-            width: 100%;
-            padding-bottom: 50vh; /* space at bottom */
-        }
-
-        .sticky-canvas {
-            width: 100%;
-            height: 60vh;
-            position: relative;
-            background: radial-gradient(circle at center, #1F2022 0%, #0B0C10 70%); /* Infinite studio background matching theme */
-        }
-
-        @media (min-width: 1024px) {
-            .split-layout {
-                flex-direction: row;
-            }
-            .scrollable-content {
-                width: 50%;
-                /* Add padding so content scrolls behind nav */
-                padding-top: 100px;
-                padding-bottom: 200px;
-            }
-            .sticky-canvas {
-                width: 50%;
-                height: 100vh;
-                position: sticky;
-                top: 0;
-            }
-        }
-
+        /* 3D Canvas Container */
         #canvas-container {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             cursor: grab;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Send to back so content scrolls over it */
         }
         #canvas-container:active {
             cursor: grabbing;
@@ -214,155 +201,153 @@
 </head>
 <body class="font-body antialiased">
 
+    <!-- Sticky Full-Screen 3D Background -->
+    <div id="canvas-container"></div>
+
     <!-- Navigation -->
-    <nav class="w-full px-8 py-6 flex justify-between items-center fixed top-0 z-50 bg-obsidian/90 backdrop-blur-md border-b border-gunmetal">
+    <nav class="w-full px-8 py-6 flex justify-between items-center fixed top-0 z-50 bg-obsidian/80 backdrop-blur-md border-b border-gunmetal">
         <div class="font-display font-bold text-2xl tracking-[0.3em] text-purewhite">FRON.</div>
         <a href="#marketplace" class="btn-shop text-xs uppercase rounded-sm">
             [ SHOP ]
         </a>
     </nav>
 
-    <!-- Split Screen Layout -->
-    <div class="split-layout">
+    <!-- Content Sections overlaid on transparent background to reveal 3D -->
+    <main class="w-full flex flex-col relative z-10" style="background: transparent;">
 
-        <!-- LEFT COLUMN: Scrollable Narrative Content -->
-        <div class="scrollable-content">
+        <!-- SECTION 1: Hero -->
+        <section class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-24 py-32" style="background: transparent;">
+            <div class="flex flex-col space-y-8 max-w-2xl bg-obsidian/40 backdrop-blur-sm p-8 rounded-sm">
+                <div class="space-y-4 fade-in-up">
+                    <p class="text-platinum/60 text-xs tracking-[0.3em] uppercase">Aero-Olfactory Architecture</p>
+                    <h1 class="font-display text-5xl lg:text-7xl font-bold leading-tight metallic-text">
+                        Ruang Reflektif
+                    </h1>
+                    <h2 class="font-display text-2xl lg:text-3xl text-purewhite font-light tracking-wide">
+                        Aroma Presisi
+                    </h2>
+                </div>
 
-            <!-- SECTION 1: Hero -->
-            <section class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-24">
-                <div class="flex flex-col space-y-8 z-10 w-full max-w-2xl">
-                    <div class="space-y-4 fade-in-up">
-                        <p class="text-platinum/60 text-xs tracking-[0.3em] uppercase">Aero-Olfactory Architecture</p>
-                        <h1 class="font-display text-5xl lg:text-7xl font-bold leading-tight metallic-text">
-                            Ruang Reflektif
-                        </h1>
-                        <h2 class="font-display text-2xl lg:text-3xl text-purewhite font-light tracking-wide">
-                            Aroma Presisi
-                        </h2>
-                    </div>
+                <p class="text-platinum/70 text-sm lg:text-base leading-relaxed font-light fade-in-up delay-100">
+                    Sebuah mahakarya wewangian ruang artisan 50ml yang dirancang melalui riset formulasi mendalam. Menghadirkan transisi suasana dari kesegaran fajar hingga kehangatan malam, dikemas dalam botol kaca minimalis.
+                </p>
 
-                    <p class="text-platinum/70 text-sm lg:text-base leading-relaxed font-light fade-in-up delay-100">
-                        Sebuah mahakarya wewangian ruang artisan 50ml yang dirancang melalui riset formulasi mendalam. Menghadirkan transisi suasana dari kesegaran fajar hingga kehangatan malam, dikemas dalam botol kaca minimalis.
+                <!-- Variant Switcher Tabs -->
+                <div class="flex space-x-1 bg-obsidian/80 p-1 rounded-sm border border-gunmetal w-max mt-4 fade-in-up delay-200">
+                    <button id="btn-dago" class="variant-btn px-6 py-2 text-xs tracking-widest font-display transition-all duration-300 bg-platinum text-obsidian rounded-sm font-bold" onclick="switchVariant('dago')">
+                        05:00 DAGO
+                    </button>
+                    <button id="btn-sudirman" class="variant-btn px-6 py-2 text-xs tracking-widest font-display text-platinum/60 hover:text-platinum transition-all duration-300 rounded-sm" onclick="switchVariant('sudirman')">
+                        18:00 SUDIRMAN
+                    </button>
+                </div>
+
+                <div class="h-12 mt-2 fade-in-up delay-200">
+                    <p id="vibe-text" class="text-platinum/60 font-light italic text-sm transition-opacity duration-500">
+                        "Menghadirkan impresi suasana pagi hari yang dingin, tenang, reflektif, dan segar."
                     </p>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Variant Switcher Tabs -->
-                    <div class="flex space-x-1 bg-obsidian/50 p-1 rounded-sm border border-gunmetal w-max mt-4 fade-in-up delay-200">
-                        <button id="btn-dago" class="variant-btn px-6 py-2 text-xs tracking-widest font-display transition-all duration-300 bg-platinum text-obsidian rounded-sm font-bold" onclick="switchVariant('dago')">
-                            05:00 DAGO
-                        </button>
-                        <button id="btn-sudirman" class="variant-btn px-6 py-2 text-xs tracking-widest font-display text-platinum/60 hover:text-platinum transition-all duration-300 rounded-sm" onclick="switchVariant('sudirman')">
-                            18:00 SUDIRMAN
-                        </button>
+        <!-- SECTION 2: ARTEFAK FORMULASI -->
+        <section class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-24 py-32" style="background: transparent;">
+            <div class="w-full max-w-4xl mx-auto bg-obsidian/60 backdrop-blur-sm p-12 rounded-sm border border-gunmetal/50">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-4 text-purewhite">ARTEFAK FORMULASI</h2>
+                    <p class="text-platinum/70 max-w-2xl mx-auto font-light">Disusun dengan presisi untuk menyebarkan aroma secara perlahan dan konsisten. Arahkan kursor pada kartu untuk observasi detail arsitektural di latar belakang.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Reactive Card: Formulasi Murni -->
+                    <div class="artefak-card p-8 rounded-sm fade-in-up delay-100 bg-obsidian/90" onclick="triggerMacroZoom()" onmouseenter="triggerMacroZoom()" onmouseleave="triggerWideZoom()">
+                        <h3 class="font-display text-xl font-bold text-purewhite tracking-widest mb-4">[ FORMULASI MURNI ]</h3>
+                        <p class="text-platinum/80 font-light leading-relaxed text-sm">
+                            Kombinasi Fragrance Oil murni dan Premium Solvent (0% Alkohol) mencegah penguapan instan, memastikan partikel terdistribusi stabil.
+                        </p>
                     </div>
 
-                    <div class="h-12 mt-2 fade-in-up delay-200">
-                        <p id="vibe-text" class="text-platinum/60 font-light italic text-sm transition-opacity duration-500">
-                            "Menghadirkan impresi suasana pagi hari yang dingin, tenang, reflektif, dan segar."
+                    <!-- Reactive Card: Kemasan Eksklusif -->
+                    <div class="artefak-card p-8 rounded-sm fade-in-up delay-200 bg-obsidian/90" onclick="triggerWideZoom()" onmouseenter="triggerWideZoom()">
+                        <h3 class="font-display text-xl font-bold text-purewhite tracking-widest mb-4">[ KEMASAN EKSKLUSIF ]</h3>
+                        <p class="text-platinum/80 font-light leading-relaxed text-sm">
+                            Berpijak pada desain minimalis elegan, botol kaca kristal dengan kerah logam platinum dan stik fiber monolitik.
                         </p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- SECTION 2: ARTEFAK FORMULASI -->
-            <section class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-24">
-                <div class="w-full max-w-2xl">
-                    <div class="mb-12 fade-in-up">
-                        <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-4 text-purewhite">ARTEFAK FORMULASI</h2>
-                        <p class="text-platinum/70 font-light">Disusun dengan presisi untuk menyebarkan aroma secara perlahan dan konsisten. Klik interaksi di bawah ini untuk mengamati detail arsitektural.</p>
+        <!-- SECTION 3: SIMULASI AMBIANCE RUANG (Contextual Environment Simulator) -->
+        <section id="simulator" class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-24 py-32" style="background: transparent;">
+            <div class="max-w-5xl mx-auto text-center fade-in-up bg-obsidian/60 backdrop-blur-sm p-12 rounded-sm border border-gunmetal/50">
+                <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4">Interaktif</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold tracking-wide mb-8 text-purewhite metallic-text">SIMULASI AMBIANCE RUANG</h2>
+                <p class="text-platinum/70 max-w-2xl mx-auto font-light mb-12">Pilih mode ruang di bawah ini dan perhatikan bagaimana objek fisik serta skema pencahayaan bereaksi seketika pada lingkungan simulasi di belakang Anda.</p>
+
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button id="sim-bedside" class="sim-tab active px-6 py-4 text-xs lg:text-sm tracking-widest font-display rounded-sm uppercase bg-obsidian/80" onclick="simulateSpace('bedside')">
+                        [ MEJA SAMPING TEMPAT TIDUR ]
+                    </button>
+                    <button id="sim-workspace" class="sim-tab px-6 py-4 text-xs lg:text-sm tracking-widest font-display rounded-sm uppercase bg-obsidian/80" onclick="simulateSpace('workspace')">
+                        [ MEJA KERJA/BELAJAR ]
+                    </button>
+                    <button id="sim-lounge" class="sim-tab px-6 py-4 text-xs lg:text-sm tracking-widest font-display rounded-sm uppercase bg-obsidian/80" onclick="simulateSpace('lounge')">
+                        [ RUANG TAMU MINIMALIS ]
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PINTU GERBANG DISTRIBUSI -->
+        <!-- Adding background gradient to smoothly return to dark layout at bottom -->
+        <section id="marketplace" class="w-full py-32 px-8 lg:px-24 bg-obsidian relative z-20 section-transition-sim-3">
+            <div class="max-w-6xl mx-auto text-center">
+                <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4 fade-in-up">Distribusi</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold tracking-wide mb-16 text-purewhite fade-in-up delay-100">Pintu Gerbang Distribusi</h2>
+
+                <div class="flex flex-col space-y-16">
+                    <!-- Marketplace Cards Container -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full p-2">
+                        <!-- Shopee -->
+                        <a href="https://shopee.co.id/fron.lab" target="_blank" class="card-shopee fade-in-up delay-100 hover-elevate rounded-sm p-10 flex flex-col items-center justify-center transition-all duration-300">
+                            <span class="text-purewhite font-display font-bold tracking-widest text-lg mb-2">SHOPEE</span>
+                            <span class="text-platinum/70 text-sm font-light">Official Store</span>
+                        </a>
+
+                        <!-- Tokopedia -->
+                        <a href="https://tk.tokopedia.com/ZSCbKXaxm/" target="_blank" class="card-tokopedia fade-in-up delay-200 hover-elevate rounded-sm p-10 flex flex-col items-center justify-center transition-all duration-300">
+                            <span class="text-purewhite font-display font-bold tracking-widest text-lg mb-2">TOKOPEDIA</span>
+                            <span class="text-platinum/70 text-sm font-light">Official Store</span>
+                        </a>
+
+                        <!-- TikTok Shop -->
+                        <a href="https://www.tiktok.com/@fron.official" target="_blank" class="card-tiktok fade-in-up delay-300 hover-elevate rounded-sm p-10 flex flex-col items-center justify-center transition-all duration-300 text-center">
+                            <span class="text-purewhite font-display font-bold tracking-widest text-lg mb-2 leading-tight">TIKTOK SHOP</span>
+                            <span class="text-platinum/70 text-sm font-light mt-1">@fron.official</span>
+                        </a>
                     </div>
 
-                    <div class="flex flex-col space-y-6">
-                        <!-- Reactive Card: Formulasi Murni -->
-                        <div class="artefak-card p-8 rounded-sm fade-in-up delay-100" onclick="triggerMacroZoom()" onmouseenter="triggerMacroZoom()" onmouseleave="triggerWideZoom()">
-                            <h3 class="font-display text-xl font-bold text-purewhite tracking-widest mb-3">[ FORMULASI MURNI ]</h3>
-                            <p class="text-platinum/80 font-light leading-relaxed text-sm">
-                                Kombinasi Fragrance Oil murni dan Premium Solvent (0% Alkohol) mencegah penguapan instan, memastikan partikel terdistribusi stabil.
-                            </p>
-                        </div>
-
-                        <!-- Reactive Card: Kemasan Eksklusif -->
-                        <div class="artefak-card p-8 rounded-sm fade-in-up delay-200" onclick="triggerWideZoom()">
-                            <h3 class="font-display text-xl font-bold text-purewhite tracking-widest mb-3">[ KEMASAN EKSKLUSIF ]</h3>
-                            <p class="text-platinum/80 font-light leading-relaxed text-sm">
-                                Berpijak pada desain minimalis elegan, botol kaca kristal dengan kerah platinum dan stik fiber monolitik.
-                            </p>
-                        </div>
+                    <!-- Social Media Navigation -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-10 pt-10 border-t border-gunmetal fade-in-up delay-300">
+                        <a href="https://www.instagram.com/fron.os" target="_blank" class="text-platinum/60 hover:text-purewhite text-sm tracking-[0.2em] font-display transition-colors">
+                            INSTAGRAM @fron.os
+                        </a>
+                        <span class="hidden sm:inline text-gunmetal">|</span>
+                        <a href="https://www.tiktok.com/@fron.official" target="_blank" class="text-platinum/60 hover:text-purewhite text-sm tracking-[0.2em] font-display transition-colors">
+                            TIKTOK @fron.official
+                        </a>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- SECTION 3: SIMULASI AMBIANCE RUANG -->
-            <section class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-24">
-                <div class="w-full max-w-2xl fade-in-up">
-                    <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-6 text-purewhite">SIMULASI AMBIANCE RUANG</h2>
-                    <p class="text-platinum/70 font-light mb-12">Simulasikan atmosfir dan pencahayaan studio di berbagai ruang interior pilihan Anda. Perhatikan interaksi cahaya secara instan.</p>
+        <!-- Footer -->
+        <footer class="w-full py-12 text-center border-t border-gunmetal bg-obsidian relative z-20">
+            <p class="text-platinum/50 text-xs tracking-[0.2em] font-display">&copy; 2026 FRON. LAB. ALL RIGHTS RESERVED.</p>
+        </footer>
 
-                    <div class="flex flex-col space-y-4 w-full">
-                        <button id="sim-bedside" class="sim-tab active w-full py-4 text-sm tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('bedside')">
-                            [ NAKAS TIDUR TENANG ]
-                        </button>
-                        <button id="sim-workspace" class="sim-tab w-full py-4 text-sm tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('workspace')">
-                            [ MEJA KERJA KREATIF ]
-                        </button>
-                        <button id="sim-lounge" class="sim-tab w-full py-4 text-sm tracking-widest font-display rounded-sm uppercase" onclick="simulateSpace('lounge')">
-                            [ RUANG SANTAI MONOKROM ]
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 4: OFFICIAL CHANNELS -->
-            <section id="marketplace" class="min-h-screen w-full flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-24 border-t border-gunmetal">
-                <div class="w-full max-w-2xl text-center">
-                    <p class="text-platinum/50 text-xs tracking-[0.3em] uppercase mb-4 fade-in-up">Distribusi</p>
-                    <h2 class="font-display text-3xl lg:text-4xl font-bold tracking-wide mb-16 text-purewhite fade-in-up delay-100">OFFICIAL CHANNELS</h2>
-
-                    <div class="flex flex-col space-y-12">
-                        <!-- Marketplace Cards -->
-                        <div class="flex flex-col space-y-6 w-full px-2">
-                            <a href="https://shopee.co.id/fron.lab" target="_blank" class="card-shopee fade-in-up delay-100 hover-elevate rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                                <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-1">SHOPEE</span>
-                                <span class="text-platinum/70 text-xs font-light">Official Store</span>
-                            </a>
-
-                            <a href="https://tk.tokopedia.com/ZSCbKXaxm/" target="_blank" class="card-tokopedia fade-in-up delay-200 hover-elevate rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                                <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-1">TOKOPEDIA</span>
-                                <span class="text-platinum/70 text-xs font-light">Official Store</span>
-                            </a>
-
-                            <a href="https://www.tiktok.com/@fron.official" target="_blank" class="card-tiktok fade-in-up delay-300 hover-elevate rounded-sm p-6 flex flex-col items-center justify-center transition-all duration-300">
-                                <span class="text-purewhite font-display font-bold tracking-widest text-sm mb-1 leading-tight">TIKTOK SHOP</span>
-                                <span class="text-platinum/70 text-xs font-light mt-1">@fron.official</span>
-                            </a>
-                        </div>
-
-                        <!-- Social Media -->
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-gunmetal fade-in-up delay-300">
-                            <a href="https://www.instagram.com/fron.os" target="_blank" class="text-platinum/60 hover:text-purewhite text-xs tracking-[0.2em] font-display transition-colors">
-                                INSTAGRAM @fron.os
-                            </a>
-                            <span class="hidden sm:inline text-gunmetal">|</span>
-                            <a href="https://www.tiktok.com/@fron.official" target="_blank" class="text-platinum/60 hover:text-purewhite text-xs tracking-[0.2em] font-display transition-colors">
-                                TIKTOK @fron.official
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Footer embedded at bottom of scrolling content -->
-            <footer class="w-full py-12 text-center border-t border-gunmetal bg-obsidian">
-                <p class="text-platinum/50 text-xs tracking-[0.2em] font-display">&copy; 2026 FRON. LAB. ALL RIGHTS RESERVED.</p>
-            </footer>
-
-        </div> <!-- End Left Column -->
-
-        <!-- RIGHT COLUMN: Sticky 3D Canvas -->
-        <div class="sticky-canvas">
-            <div id="canvas-container"></div>
-        </div>
-
-    </div> <!-- End Split Layout -->
+    </main>
 
     <!-- Intersection Observer for Fade-in Animations -->
     <script>
@@ -391,30 +376,47 @@
 
         // --- 1. Scene Setup & Camera ---
         const container = document.getElementById('canvas-container');
+        // Since canvas is fixed full screen, we can handle backgrounds in CSS on its container, but we'll use a scene background color here.
         const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0B0C10);
 
         // Initial Wide Shot configuration
         const WIDE_Z = 7;
-        const MACRO_Z = 3.5;
+        const MACRO_Z = 4;
         let targetZ = WIDE_Z;
+        let targetX = 2; // Offset right
 
-        const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
-        camera.position.set(0, 2.5, WIDE_Z);
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(2, 2.5, WIDE_Z); // Offset initial camera slightly right
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+        renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
-        // --- 2. Lighting ---
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        // --- 2. Infinite Polished Table Slab ---
+        // Wide table slab crossing horizon
+        const tableGeometry = new THREE.PlaneGeometry(200, 200);
+        const tableMaterial = new THREE.MeshStandardMaterial({
+            color: 0x161719,
+            roughness: 0.1, // Highly reflective
+            metalness: 0.2
+        });
+        const table = new THREE.Mesh(tableGeometry, tableMaterial);
+        table.rotation.x = -Math.PI / 2;
+        table.position.y = -1.0;
+        table.receiveShadow = true;
+        scene.add(table);
+
+        // --- 3. Lighting ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
-        // Key spotlight
-        const spotLight = new THREE.SpotLight(0xffffff, 3.0);
-        spotLight.position.set(3, 6, 4);
+        // SpotLight (Dynamic per simulator)
+        const spotLight = new THREE.SpotLight(0xffffff, 2.5);
+        spotLight.position.set(3, 8, 5);
         spotLight.angle = Math.PI / 4;
         spotLight.penumbra = 0.5;
         spotLight.castShadow = true;
@@ -423,31 +425,24 @@
         spotLight.shadow.bias = -0.0001;
         scene.add(spotLight);
 
+        // Specific Warm Bedside Light (Toggleable)
+        const bedsideLight = new THREE.PointLight(0xFFB76B, 0, 15); // Warm 3000K
+        bedsideLight.position.set(-2, 3, 0);
+        bedsideLight.castShadow = true;
+        scene.add(bedsideLight);
+
         // High Intensity Backlighting/Rim Lighting pointing at sticks for high contrast edge glow
         const rimLight = new THREE.DirectionalLight(0xffffff, 3.0);
-        rimLight.position.set(0, -2, -5); // Behind and below
+        rimLight.position.set(0, -2, -5);
         const rimTarget = new THREE.Object3D();
         rimTarget.position.set(0, 3.5, 0);
         scene.add(rimTarget);
         rimLight.target = rimTarget;
         scene.add(rimLight);
 
-        // --- 3. Monolithic Cylindrical Podium ---
-        // Instead of a floor plane, use a cylindrical podium
-        const podiumGeo = new THREE.CylinderGeometry(2, 2, 0.5, 64);
-        const podiumMat = new THREE.MeshStandardMaterial({
-            color: 0x121212, // Dark charcoal
-            roughness: 0.2,  // Slight sheen
-            metalness: 0.1
-        });
-        const podium = new THREE.Mesh(podiumGeo, podiumMat);
-        podium.position.y = -1.25; // Top surface is at -1.0
-        podium.receiveShadow = true;
-        scene.add(podium);
-
-        // --- 4. Product Modeling ---
+        // --- 4. Product Modeling (FRON Bottle) ---
         const bottleGroup = new THREE.Group();
-        bottleGroup.position.y = -1.0; // Rest on podium
+        bottleGroup.position.y = -1.0;
 
         // a. Extra Thick Base Glass Bottle (transmission: 0.99, roughness: 0.01)
         const glassMaterial = new THREE.MeshPhysicalMaterial({
@@ -465,7 +460,7 @@
 
         const outerBottleGeo = new THREE.BoxGeometry(1.5, 2.2, 1.5);
         const glassBottle = new THREE.Mesh(outerBottleGeo, glassMaterial);
-        glassBottle.position.y = 1.1; // Center at 1.1, bottom at 0.0
+        glassBottle.position.y = 1.1;
         glassBottle.castShadow = true;
         glassBottle.receiveShadow = true;
         bottleGroup.add(glassBottle);
@@ -484,26 +479,25 @@
         liquidMesh.position.y = 1.2;
         bottleGroup.add(liquidMesh);
 
-        // b. Sleek Metallic Collar Ring (Replaces Wooden Cap)
+        // b. Sleek Metallic Collar Ring
         const collarMat = new THREE.MeshStandardMaterial({
-            color: 0xE5E5E5, // Platinum
-            roughness: 0.05, // High gloss
-            metalness: 1.0   // Pure metal
+            color: 0xE5E5E5,
+            roughness: 0.05,
+            metalness: 1.0
         });
         const collarGeo = new THREE.CylinderGeometry(0.3, 0.4, 0.15, 64);
         const metallicCollar = new THREE.Mesh(collarGeo, collarMat);
-        metallicCollar.position.y = 2.275; // Sits exactly on glass (2.2)
+        metallicCollar.position.y = 2.275;
         metallicCollar.castShadow = true;
         bottleGroup.add(metallicCollar);
 
-        // Inner plug (charcoal) inside collar
         const plugMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9 });
         const plugGeo = new THREE.CylinderGeometry(0.25, 0.25, 0.16, 32);
         const plugMesh = new THREE.Mesh(plugGeo, plugMat);
         plugMesh.position.y = 2.275;
         bottleGroup.add(plugMesh);
 
-        // c. Product Label (Canvas Texture double border)
+        // c. Product Label
         function createLabelTexture() {
             const canvas = document.createElement('canvas');
             canvas.width = 512;
@@ -540,11 +534,11 @@
         labelMesh.position.set(0, 1.2, 0.76);
         bottleGroup.add(labelMesh);
 
-        // d. Asymmetrical Fiber Sticks with Thin Gloss Layer
+        // d. Asymmetrical Fiber Sticks
         const stickMaterial = new THREE.MeshStandardMaterial({
-            color: 0x121212, // Dark charcoal
-            roughness: 0.4,  // Lowered roughness for thin gloss
-            metalness: 0.3   // Catch rim light
+            color: 0x121212,
+            roughness: 0.4,
+            metalness: 0.3
         });
         const stickGeo = new THREE.CylinderGeometry(0.015, 0.015, 3.5, 16);
         const sticksParams = [
@@ -565,30 +559,113 @@
 
         scene.add(bottleGroup);
 
-        // --- 5. Ambient Particle Stars (Expanded & More Visible) ---
-        // Size increased to 0.04, pure gold and platinum
-        const particleCount = 500;
+        // --- 5. Contextual Environment Simulator Objects ---
+
+        // Mode 1: Bedside Lamp & Bed Edge
+        const bedsideGroup = new THREE.Group();
+        bedsideGroup.visible = true; // default mode
+
+        // Lamp stand
+        const lampPole = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.05, 0.05, 3.5, 16),
+            new THREE.MeshStandardMaterial({color: 0x111111, roughness: 0.2})
+        );
+        lampPole.position.set(-2.5, 0.75, -1);
+        lampPole.castShadow = true;
+        bedsideGroup.add(lampPole);
+
+        // Lamp shade
+        const lampShade = new THREE.Mesh(
+            new THREE.ConeGeometry(0.8, 1, 32, 1, true),
+            new THREE.MeshStandardMaterial({color: 0xE5E5E5, side: THREE.DoubleSide, roughness: 0.8})
+        );
+        lampShade.position.set(-2.5, 2.5, -1);
+        lampShade.castShadow = true;
+        bedsideGroup.add(lampShade);
+
+        // Bed edge block
+        const bedBlock = new THREE.Mesh(
+            new THREE.BoxGeometry(4, 1.5, 4),
+            new THREE.MeshStandardMaterial({color: 0x222222, roughness: 0.9})
+        );
+        bedBlock.position.set(-5, -0.25, 2);
+        bedBlock.receiveShadow = true;
+        bedsideGroup.add(bedBlock);
+
+        scene.add(bedsideGroup);
+
+        // Mode 2: Laptop Workspace
+        const workspaceGroup = new THREE.Group();
+        workspaceGroup.visible = false;
+
+        // Laptop base
+        const laptopBase = new THREE.Mesh(
+            new THREE.BoxGeometry(2, 0.05, 1.5),
+            new THREE.MeshStandardMaterial({color: 0xC5C6C7, roughness: 0.3, metalness: 0.5})
+        );
+        laptopBase.position.set(2.5, -0.975, 0);
+        laptopBase.castShadow = true;
+        workspaceGroup.add(laptopBase);
+
+        // Laptop screen (hinged)
+        const laptopScreen = new THREE.Mesh(
+            new THREE.BoxGeometry(2, 1.5, 0.05),
+            new THREE.MeshStandardMaterial({color: 0x050505, roughness: 0.1}) // dark screen
+        );
+        // Position relative to base back edge
+        laptopScreen.position.set(2.5, -0.2, -0.75);
+        laptopScreen.rotation.x = -Math.PI / 10;
+        laptopScreen.castShadow = true;
+        workspaceGroup.add(laptopScreen);
+
+        scene.add(workspaceGroup);
+
+        // Mode 3: Minimalist Lounge (Vase)
+        const loungeGroup = new THREE.Group();
+        loungeGroup.visible = false;
+
+        // Modern Geometric Vase
+        const vase = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.5, 0.3, 2, 8),
+            new THREE.MeshStandardMaterial({color: 0x333333, roughness: 0.7})
+        );
+        vase.position.set(2.5, 0, -2);
+        vase.castShadow = true;
+        loungeGroup.add(vase);
+
+        // Sofa Arm
+        const sofaArm = new THREE.Mesh(
+            new THREE.BoxGeometry(1.5, 2.5, 4),
+            new THREE.MeshStandardMaterial({color: 0x1F2022, roughness: 0.9})
+        );
+        sofaArm.position.set(-4.5, 0.25, 1);
+        sofaArm.receiveShadow = true;
+        loungeGroup.add(sofaArm);
+
+        scene.add(loungeGroup);
+
+        // --- 6. Ambient Particle Stars (Expanded) ---
+        const particleCount = 1000;
         const particlesGeo = new THREE.BufferGeometry();
         const particleColors = new Float32Array(particleCount * 3);
-        const colorGold = new THREE.Color(0xFFD700); // Pure Gold
-        const colorPlat = new THREE.Color(0xC5C6C7); // Platinum
+        const colorGold = new THREE.Color(0xFFD700);
+        const colorPlat = new THREE.Color(0xC5C6C7);
 
         const posArray = new Float32Array(particleCount * 3);
         const velArray = [];
 
         for(let i = 0; i < particleCount; i++) {
-            posArray[i*3] = (Math.random() - 0.5) * 12;
-            posArray[i*3+1] = Math.random() * 10;
-            posArray[i*3+2] = (Math.random() - 0.5) * 12 - 2;
+            posArray[i*3] = (Math.random() - 0.5) * 20;
+            posArray[i*3+1] = Math.random() * 15;
+            posArray[i*3+2] = (Math.random() - 0.5) * 20 - 5;
 
             velArray.push({
-                x: (Math.random() - 0.5) * 0.003,
-                y: (Math.random() - 0.5) * 0.003,
-                z: (Math.random() - 0.5) * 0.003
+                x: (Math.random() - 0.5) * 0.005,
+                y: (Math.random() - 0.5) * 0.005,
+                z: (Math.random() - 0.5) * 0.005
             });
 
-            // Mix gold and platinum
-            const col = Math.random() > 0.5 ? colorGold : colorPlat;
+            const col = Math.random() > 0.4 ? colorGold : colorPlat;
             particleColors[i*3] = col.r;
             particleColors[i*3+1] = col.g;
             particleColors[i*3+2] = col.b;
@@ -598,9 +675,9 @@
         particlesGeo.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
 
         const particlesMat = new THREE.PointsMaterial({
-            size: 0.04, // Larger particles
+            size: 0.05,
             transparent: true,
-            opacity: 0.8, // Brighter
+            opacity: 0.9,
             vertexColors: true,
             blending: THREE.AdditiveBlending
         });
@@ -609,7 +686,7 @@
         scene.add(particleSystem);
 
 
-        // --- 6. Controls & Animation ---
+        // --- 7. Controls & Animation ---
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
@@ -618,13 +695,21 @@
         controls.maxPolarAngle = Math.PI / 2 - 0.05;
 
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.5;
+        controls.autoRotateSpeed = 0.3;
 
         let interactTimeout;
         controls.addEventListener('start', () => { controls.autoRotate = false; });
         controls.addEventListener('end', () => {
             clearTimeout(interactTimeout);
             interactTimeout = setTimeout(() => { controls.autoRotate = true; }, 3000);
+        });
+
+        // Add subtle mouse tracking to affect camera
+        let mouseX = 0;
+        let mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
         });
 
         function animate() {
@@ -637,19 +722,24 @@
                 pAtt.array[i*3+1] += velArray[i].y;
                 pAtt.array[i*3+2] += velArray[i].z;
 
-                if(pAtt.array[i*3+1] > 10 || pAtt.array[i*3+1] < 0) velArray[i].y *= -1;
-                if(Math.abs(pAtt.array[i*3]) > 6) velArray[i].x *= -1;
+                if(pAtt.array[i*3+1] > 15 || pAtt.array[i*3+1] < -2) velArray[i].y *= -1;
+                if(Math.abs(pAtt.array[i*3]) > 10) velArray[i].x *= -1;
             }
             pAtt.needsUpdate = true;
 
             // Camera Target Zoom Interpolation
             camera.position.z += (targetZ - camera.position.z) * 0.05;
 
-            // Adjust camera Y slightly if doing macro zoom
+            // Add slight mouse parallax if not interacting
+            if(controls.autoRotate) {
+                 camera.position.x += ((targetX + (mouseX * 0.5)) - camera.position.x) * 0.05;
+            } else {
+                 camera.position.x += (targetX - camera.position.x) * 0.05;
+            }
+
             const targetY = targetZ === MACRO_Z ? 1.5 : 2.5;
             camera.position.y += (targetY - camera.position.y) * 0.05;
 
-            // Center target adjust
             const targetCenterY = targetZ === MACRO_Z ? 1.0 : 0.0;
             controls.target.y += (targetCenterY - controls.target.y) * 0.05;
 
@@ -661,27 +751,25 @@
         // Handle Resize
         window.addEventListener('resize', () => {
             if(container) {
-                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
-                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setSize(window.innerWidth, window.innerHeight);
             }
         });
 
         // Global EXPORTS for UI integration
         window.liquidMaterial = liquidMaterial;
         window.spotLight = spotLight;
+        window.bedsideLight = bedsideLight;
         window.ambientLight = ambientLight;
-        window.rimLight = rimLight;
+
+        window.bedsideGroup = bedsideGroup;
+        window.workspaceGroup = workspaceGroup;
+        window.loungeGroup = loungeGroup;
 
         // Expose Zoom Control
-        window.triggerMacroZoom = () => { targetZ = MACRO_Z; };
-        window.triggerWideZoom = () => { targetZ = WIDE_Z; };
-
-        // Expose Scene background update function
-        window.updateSceneBackground = (color1, color2) => {
-            // Update the CSS radial background of the container instead of ThreeJS clearcolor to keep infinite studio feel
-            container.parentElement.style.background = `radial-gradient(circle at center, ${color1} 0%, ${color2} 70%)`;
-        };
+        window.triggerMacroZoom = () => { targetZ = MACRO_Z; targetX = 0; };
+        window.triggerWideZoom = () => { targetZ = WIDE_Z; targetX = 2; };
     </script>
 
     <!-- UI Logic for Interactivity -->
@@ -723,25 +811,26 @@
         window.switchVariant = switchVariant;
 
 
-        // Space Placement Simulator Logic
+        // Physical Environment Simulator Logic
         const spaces = {
             bedside: {
-                bgColors: ['#1F2022', '#0B0C10'], // Default dark
-                lightIntensity: 1.5,
-                rimIntensity: 1.0,
-                liquidColor: 0xd6a87c // Warm tint
+                spotIntensity: 0.5, // Dimmer overhead
+                ambientIntensity: 0.3, // Darker room
+                bedsideIntensity: 5.0, // Turn ON bedside lamp
+                showGroup: 'bedside'
             },
             workspace: {
-                bgColors: ['#3A3B3D', '#1A1B1D'], // Brighter grey studio
-                lightIntensity: 4.0,
-                rimIntensity: 5.0, // High rim reflection
-                liquidColor: 0xffffff // Clear
+                spotIntensity: 4.0, // Bright overhead sharp
+                spotColor: 0xFFFFFF, // 5000k white
+                ambientIntensity: 0.8,
+                bedsideIntensity: 0, // OFF
+                showGroup: 'workspace'
             },
             lounge: {
-                bgColors: ['#1A1B1D', '#0B0C10'], // Moody monocrhome
-                lightIntensity: 2.5,
-                rimIntensity: 3.0,
-                liquidColor: 0xe2e8f0
+                spotIntensity: 1.0,
+                ambientIntensity: 1.2, // Bright diffuse
+                bedsideIntensity: 0, // OFF
+                showGroup: 'lounge'
             }
         };
 
@@ -753,12 +842,24 @@
             });
             document.getElementById(`sim-${spaceKey}`).classList.add('active');
 
-            if(window.spotLight) window.spotLight.intensity = data.lightIntensity;
-            if(window.rimLight) window.rimLight.intensity = data.rimIntensity;
-            if(window.liquidMaterial) window.liquidMaterial.color.setHex(data.liquidColor);
-            if(window.updateSceneBackground) window.updateSceneBackground(data.bgColors[0], data.bgColors[1]);
+            // Handle Light Logic
+            if(window.spotLight) {
+                window.spotLight.intensity = data.spotIntensity;
+                if(data.spotColor) window.spotLight.color.setHex(data.spotColor);
+                else window.spotLight.color.setHex(0xffffff);
+            }
+            if(window.ambientLight) window.ambientLight.intensity = data.ambientIntensity;
+            if(window.bedsideLight) window.bedsideLight.intensity = data.bedsideIntensity;
+
+            // Handle Object Visibility
+            if(window.bedsideGroup) window.bedsideGroup.visible = data.showGroup === 'bedside';
+            if(window.workspaceGroup) window.workspaceGroup.visible = data.showGroup === 'workspace';
+            if(window.loungeGroup) window.loungeGroup.visible = data.showGroup === 'lounge';
         }
         window.simulateSpace = simulateSpace;
+
+        // Init state
+        simulateSpace('bedside');
     </script>
 </body>
 </html>
